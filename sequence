@@ -1,0 +1,20 @@
+import java.io.*;
+
+public class SeqInputStreamTest {
+    public static void main(String[] args) throws Exception {
+        FileInputStream f1 = new FileInputStream("D:\\Java\\First.txt");
+        FileInputStream f2 = new FileInputStream("D:\\Java\\Second.txt");
+        FileOutputStream out = new FileOutputStream("D:\\Java\\Merged.txt");
+
+        SequenceInputStream sis = new SequenceInputStream(f1, f2);
+        int c;
+        while ((c = sis.read()) != -1) {
+            System.out.print((char)c);
+            out.write(c);
+        }
+
+        System.out.println("\nFiles Merged..");
+
+        sis.close(); f1.close(); f2.close(); out.close();
+    }
+}
