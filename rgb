@@ -1,0 +1,45 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class SwingControlDemo extends JFrame implements ActionListener {
+    JLabel L2;
+    Container con;
+
+    public SwingControlDemo() {
+        super("Java Swing Example");
+        setSize(400, 400);
+        con = getContentPane();
+        setLayout(new GridLayout(2, 1));
+
+        L2 = new JLabel("", JLabel.CENTER);
+        L2.setFont(new Font("Verdana", Font.BOLD, 30));
+        L2.setForeground(Color.cyan);
+        add(new JLabel()); // placeholder
+        add(L2);
+
+        JPanel P1 = new JPanel();
+        for (String color : new String[]{"RED", "BLUE", "GREEN"}) {
+            JButton b = new JButton(color);
+            b.setActionCommand(color);
+            b.addActionListener(this);
+            P1.add(b);
+        }
+        add(P1);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case "RED" -> { con.setBackground(Color.RED); L2.setText("RED Button clicked."); }
+            case "BLUE" -> { con.setBackground(Color.BLUE); L2.setText("BLUE Button clicked."); }
+            case "GREEN" -> { con.setBackground(Color.GREEN); L2.setText("GREEN Button clicked."); }
+        }
+    }
+
+    public static void main(String[] args) {
+        new SwingControlDemo();
+    }
+}
