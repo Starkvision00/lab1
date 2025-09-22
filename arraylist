@@ -1,0 +1,17 @@
+import java.util.*;
+
+public class ArrayListTest {
+    public static void main(String[] args) {
+        ArrayList<Integer> a = new ArrayList<>();
+        a.addAll(Arrays.asList(10, 30, 50, 70, 80));
+        System.out.println("ArrayList elements: " + a);
+
+        int sum = 0;
+        for (int n : a) sum += n;
+        System.out.println("Sum: " + sum);
+
+        System.out.print("Elements in reverse: [");
+        for (int i = a.size() - 1; i >= 0; i--) System.out.print(a.get(i) + " ");
+        System.out.println("]");
+    }
+}
