@@ -1,0 +1,29 @@
+import java.net.*;
+import java.io.*;
+
+public class TCPDemo {
+    public static void main(String[] args) {
+        // Start server thread
+        new Thread(() -> {
+            try (ServerSocket ss = new ServerSocket(9000);
+                 Socket s = ss.accept();
+                 BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()))) {
+                System.out.println("Server: Connected with client");
+                System.out.println("Server received: " + br.readLine());
+            } catch (Exception e) { System.out.println(e); }
+        }).start();
+
+        // Give server time to start
+        try { Thread.sleep(500); } catch (Exception e) {}
+
+        // Start client thread
+        new Thread(() -> {
+            try (Socket s = new Socket("localhost", 9000);
+                 PrintStream ps = new PrintStream(s.getOutputStream(), true)) {
+                System.out.println("Client: Connected to server");
+                ps.println("Hello M.Sc Students How are You?");
+                System.out.println("Client: Data sent successfully");
+            } catch (Exception e) { System.out.println(e); }
+        }).start();
+    }
+}
