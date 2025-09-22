@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+abstract class Department {
+    protected String empName;
+    protected double empSalary;
+
+    Department(String name, double salary) {
+        empName = name;
+        empSalary = salary;
+    }
+
+    void display() {
+        System.out.println("Employee: " + empName + "\nBasic Salary: " + empSalary);
+    }
+
+    abstract void calcBonus();
+}
+
+class Account extends Department {
+    double hra, tax, bonus;
+
+    Account(String name, double salary) {
+        super(name, salary);
+        hra = empSalary * 0.20;
+        tax = empSalary * 0.05;
+    }
+
+    void calcBonus() {
+        bonus = (empSalary > 20000) ? empSalary * 0.10 : empSalary * 0.20;
+    }
+
+    void showTotalSalary() {
+        display();
+        calcBonus();
+        System.out.println("Total Salary: " + ((empSalary + hra + bonus) - tax));
+    }
+}
+
+public class AbstractClass {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter name: ");
+        String name = sc.next();
+        System.out.print("Enter salary: ");
+        double sal = sc.nextDouble();
+
+        new Account(name, sal).showTotalSalary();
+    }
+}
